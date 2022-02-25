@@ -1,0 +1,6 @@
+#+TITLE: README
+#+AUTHOR: Ben Mezger
+#+DATE: <2020-08-11 Tue>
+
+Emacs version 27 for Archlinux. This is a fork from [[https://aur.archlinux.org/packages/emacs27-git/][emacs27-git]] from [[https://aur.archlinux.org/][AUR]]. This
+fixes the issue with =sed= not correctly finding Emacs version.
