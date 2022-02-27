@@ -1,0 +1,22 @@
+pkgbase = riscv32-elf-gdb
+	pkgdesc = The GNU Debugger for the RISCV32 (bare-metal) target
+	pkgver = 11.2
+	pkgrel = 2
+	url = https://www.gnu.org/software/gdb/
+	arch = x86_64
+	license = GPL3
+	depends = xz
+	depends = ncurses
+	depends = expat
+	depends = python
+	depends = guile
+	depends = gdb-common
+	depends = mpfr
+	options = !emptydirs
+	source = https://ftp.gnu.org/gnu/gdb/gdb-11.2.tar.xz
+	source = https://ftp.gnu.org/gnu/gdb/gdb-11.2.tar.xz.sig
+	validpgpkeys = F40ADB902B24264AA42E50BF92EDB04BFF325CF3
+	sha512sums = 07e9026423438049b11f4f784d57401ece4e940570f613bd6958b3714fe7fbc2c048470bcce3e7d7d9f93331cdf3881d30dcc964cb113a071143a02b28e5b127
+	sha512sums = SKIP
+
+pkgname = riscv32-elf-gdb
