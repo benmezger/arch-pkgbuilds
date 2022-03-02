@@ -26,6 +26,7 @@ options=('!strip')
 # http://repository.spotify.com/dists/testing/Release.gpg
 source=('spotify.protocol'
         'LICENSE'
+        'spotify-wrapper'
         "${pkgname}-${pkgver}-x86_64.deb::http://repository.spotify.com/pool/non-free/s/spotify-client/spotify-client_${pkgver}.${_commit}_amd64.deb"
         # GPG signature check
         "${pkgname}-${pkgver}-${pkgrel}-Release::http://repository.spotify.com/dists/testing/Release"
@@ -33,11 +34,12 @@ source=('spotify.protocol'
         "${pkgname}-${pkgver}-${pkgrel}-x86_64-Packages::http://repository.spotify.com/dists/testing/non-free/binary-amd64/Packages")
 sha512sums=('999abe46766a4101e27477f5c9f69394a4bb5c097e2e048ec2c6cb93dfa1743eb436bde3768af6ba1b90eaac78ea8589d82e621f9cbe7d9ab3f41acee6e8ca20'
             '2e16f7c7b09e9ecefaa11ab38eb7a792c62ae6f33d95ab1ff46d68995316324d8c5287b0d9ce142d1cf15158e61f594e930260abb8155467af8bc25779960615'
+            '03f2812fdb74d8c5c0672344741b706404980c0bc5eae61d00ce3c8e4f2d5feff3bc7fb4644228c4ff616763a7672aec7f6615412913c47cbc9547d378cbdbcc'
             '65cec95448d936b7be93b0d16f29927a298b5b56aa2bc4834a5d357e341c78486fa69e61b3b6cf9fbe7da88c8d3b6ce3bccb5e963ed1b5a23320c0c808ccb385'
+            'e62063d8b22dc2c9c7b8a2a64236f9f9fe1552f4e5faeae663d5fe840e28b939fe9dcfb5a4d36ba8b330b9c2dcbba76cc54380d7a0f32165eca3a3eb8d73dff5'
             'SKIP'
-            'SKIP'
-            'SKIP')
-# Import key with:
+            '3f4e5bb583c36bd6c6f6c30d1b2ca5fab5dc40eb1ee5cd716c7235c5bfe961531b27e8a894e8f213bda83ab074d2854e7df26a383cd8d08ed4d3e48de75c9e8c')
+    # Import key with:
 # curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --import -
 validpgpkeys=('F9A211976ED662F00E59361E5E3C45D7B312C643') # Spotify Public Repository Signing Key <tux@spotify.com>
 # Old Keys:
@@ -76,15 +78,16 @@ package() {
     mkdir -p "${pkgdir}"/opt/spotify
     mv "${pkgdir}/usr/share/spotify" "${pkgdir}/opt/"
 
-    # Symlink spotify binary which is located in /opt
-    ln -sf /opt/spotify/spotify "${pkgdir}/usr/bin/spotify"
-
     # Copy protocol file for KDE
     install -Dm644 "${srcdir}/spotify.protocol" "${pkgdir}/usr/share/kservices5/spotify.protocol"
 
     # Install license
     # https://www.spotify.com/legal/end-user-agreement
+
     install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+    # wrap spotify with wrapper
+    install -Dm 755 spotify-wrapper "${pkgdir}/usr/bin/spotify"
 
     # Fix permissions
     chmod -R go-w "${pkgdir}"
