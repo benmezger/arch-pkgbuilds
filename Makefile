@@ -11,7 +11,7 @@ info:
 	@echo "-> Order: build-all copy-all update-db"
 
 build-all: */
-	find $^ -name PKGBUILD -execdir makepkg + \;
+	find $^ -name PKGBUILD -execdir makepkg -f + \;
 
 copy-all: */
 	find $^ -name \*.pkg.tar.zst -exec cp -v {} ${ARCH_REPO}/${ARCH} \;
