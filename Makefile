@@ -2,6 +2,10 @@ ARCH=x86_64
 ARCH_REPO=${HOME}/workspace/pacman-local
 ARCH_DB=${ARCH_REPO}/${ARCH}/sedspkgs
 
+.NOTPARALLEL:
+.PHONY: all
+all: info  build-all copy-all update-db
+
 info:
 	@echo "-> Arch repository: ${ARCH_REPO}"
 	@echo "-> Order: build-all copy-all update-db"
@@ -24,3 +28,4 @@ update-db:
 	@echo "-> Renaming tar.gz files without extension"
 	mv ${ARCH_DB}.db.tar.gz ${ARCH_DB}.db
 	mv ${ARCH_DB}.files.tar.gz ${ARCH_DB}.files
+
