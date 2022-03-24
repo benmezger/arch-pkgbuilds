@@ -4,3 +4,4 @@ pkg
 *.zip
 *.bz2
 *.sig
+*.zst
