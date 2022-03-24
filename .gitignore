@@ -2,3 +2,5 @@ src
 pkg
 *.tar
 *.zip
+*.bz2
+*.sig
