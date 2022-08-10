@@ -8,7 +8,15 @@ import subprocess
 import os
 
 
-IGNORE = (".git", ".mypy_cache")
+IGNORE = (
+    ".git",
+    ".mypy_cache",
+    "riscv32-elf-binutils",
+    "riscv32-elf-gcc",
+    "riscv32-elf-gdb",
+    "riscv32-elf-newlib",
+    "riscv64-elf-binutils",
+)
 
 
 def find_pkgs() -> list:
