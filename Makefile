@@ -10,8 +10,8 @@ info:
 	@echo "-> Arch repository: ${ARCH_REPO}"
 	@echo "-> Order: build-all copy-all update-db"
 
-build-all: */
-	find $^ -name PKGBUILD -execdir makepkg -f + \;
+build-all:
+	python build.py
 
 copy-all: */
 	find $^ -name \*.pkg.tar.zst -exec cp -v {} ${ARCH_REPO}/${ARCH} \;
