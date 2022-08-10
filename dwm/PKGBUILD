@@ -1,0 +1,30 @@
+# Maintainer: Ben Mezger <me at benmezger dot nl>
+
+_upstream_name=dwm
+pkgname=$_upstream_name
+pkgver=r17.9f3b114
+pkgrel=1
+pkgdesc="SEDS dwm configuration"
+arch=('any')
+url="https://github.com/benmezger/dwm"
+license=('MIT')
+source=('git+https://github.com/benmezger/dwm.git')
+md5sums=('SKIP')
+options=(zipman)
+depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'alacritty' 'dmenu')
+
+pkgver() {
+  cd "$srcdir/${_pkgname}"
+  printf "r%s.%s\n" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$srcdir/$pkgname"
+  make clean
+  make
+}
+
+package() {
+  cd "${srcdir}/$pkgname"
+  make DESTDIR="$pkgdir/" install
+}
