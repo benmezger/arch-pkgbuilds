@@ -16,6 +16,9 @@ build-all:
 copy-all: */
 	find $^ -name \*.pkg.tar.zst -exec cp -v {} ${ARCH_REPO}/${ARCH} \;
 
+clean: */
+	find $^ -name \*.pkg.tar.zst -exec rm -rfv {} \;
+
 update-db:
 	rm -v ${ARCH_DB}*
 	$(MAKE) copy-all
