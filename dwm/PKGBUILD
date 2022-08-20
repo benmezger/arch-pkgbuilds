@@ -2,7 +2,7 @@
 
 _upstream_name=dwm
 pkgname=$_upstream_name
-pkgver=r24.dcdce2d
+pkgver=r25.5e03ac7
 pkgrel=1
 pkgdesc="SEDS dwm configuration"
 arch=('any')
