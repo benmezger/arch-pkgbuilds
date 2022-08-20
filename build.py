@@ -16,6 +16,7 @@ IGNORE = (
     "riscv32-elf-gdb",
     "riscv32-elf-newlib",
     "riscv64-elf-binutils",
+    "emacs27",
 )
 
 
