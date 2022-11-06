@@ -2,7 +2,7 @@
 
 _upstream_name=dwm
 pkgname=$_upstream_name
-pkgver=r31.3c07b06
+pkgver=r32.9ab6485
 pkgrel=1
 pkgdesc="SEDS dwm configuration"
 arch=('any')
@@ -14,17 +14,17 @@ options=(zipman)
 depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'alacritty' 'dmenu')
 
 pkgver() {
-  cd "$srcdir/${_pkgname}"
+  cd "${srcdir}/${_pkgname}"
   printf "r%s.%s\n" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd "${srcdir}/${pkgname}/finalized"
   make clean
   make
 }
 
 package() {
-  cd "${srcdir}/$pkgname"
-  make DESTDIR="$pkgdir/" install
+  cd "${srcdir}/${pkgname}/finalized"
+  make DESTDIR="${pkgdir}/" install
 }
