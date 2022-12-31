@@ -6,3 +6,4 @@ pkg
 *.sig
 *.zst
 *.tar.xz
+*.deb
