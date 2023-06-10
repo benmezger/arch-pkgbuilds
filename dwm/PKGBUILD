@@ -2,10 +2,10 @@
 
 _upstream_name=dwm
 pkgname=$_upstream_name
-pkgver=r41.7bdb3eb
+pkgver=r44.3ec63b9
 pkgrel=1
 pkgdesc="SEDS dwm configuration"
-arch=('any')
+arch=('x86_64')
 url="https://github.com/benmezger/dwm"
 license=('MIT')
 source=('git+https://github.com/benmezger/dwm.git')
