@@ -1,7 +1,7 @@
 # Maintainer: Ben Mezger <me at benmezger dot nl>
 _pkgname=gitmux
 pkgname=$_pkgname-git
-pkgver=r54.de215c3
+pkgver=r70.5479145
 pkgrel=1
 pkgdesc="Git in your tmux status bar"
 arch=('any')
