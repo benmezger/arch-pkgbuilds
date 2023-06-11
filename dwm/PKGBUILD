@@ -11,7 +11,8 @@ license=('MIT')
 source=('git+https://github.com/benmezger/dwm.git')
 md5sums=('SKIP')
 options=(zipman)
-depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'alacritty' 'dmenu')
+depends=('libx11' 'libxinerama' 'libxft' 'freetype2')
+optdepends=('alacritty' 'dmenu')
 
 pkgver() {
   cd "${srcdir}/${_pkgname}"
