@@ -1,0 +1,73 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+      env:
+        makepkg_flags: "-f"
+        pkgsdir: "/home/nonroot/pkgs"
+    steps:
+      - name: Install latest git
+        run: |
+          pacman -Syy --noconfirm git
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Create non_root user
+        run: |
+          useradd nonroot && mkdir /home/nonroot && chown -R nonroot:nonroot /home/nonroot
+      - name: Set nonroot user in sudoers
+        run: |
+          echo 'nonroot ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+      - name: Set root user in sudoers
+        run: |
+          echo 'root ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+      - name: Enable multilib
+        run: |
+          echo -e '[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf
+      - name: Enable extra
+        run: |
+          sed -i '/^#\[extra\]/{N;s/#//g}' /etc/pacman.conf
+      - name: Install dependencies
+        run: |
+          pacman -Syyu --noconfirm && pacman -S --noconfirm just base-devel sudo xorgproto openssh
+      - name: Set source permissions
+        run: |
+          chown -R nonroot:nonroot .
+      - name: Clone sedspkg
+        run: |
+          git clone --depth 1 https://${{ secrets.GITLAB_SECRET_TOKEN }}@gitlab.com/benmezger/sedspkgs.git $pkgsdir && \
+            chown -R nonroot:nonroot $pkgsdir
+      - name: Build packages
+        run: |
+          sudo -u nonroot just makepkg_flags=$makepkg_flags pkgsdir=$pkgsdir all
+      - name: Show sedspkg diff
+        run: |
+          cd $pkgsdir
+          sudo -u nonroot git diff
+      - name: Update sedspkg database
+        run: |
+          cd $pkgsdir
+          bash ./build-db.sh
+      - name: Commit and release
+        run: |
+          cd $pkgsdir
+
+          git config --global --add safe.directory $pkgsdir
+          git config --global user.email "me@benmezger.nl"
+          git config --global user.name "Ben Mezger"
+          git remote set-url origin https://oauth:${{ secrets.GITLAB_SECRET_TOKEN }}@gitlab.com/benmezger/sedspkgs.git
+
+          git add .
+          git commit -am "Automatic package release %(date)"
+          git push origin main
