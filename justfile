@@ -12,7 +12,7 @@ pkgsdir := "../pacman-local"
 # 4. manually run ./build-db.sh in $pkgsdir
 
 all:
-        @echo {{PACKAGE_FILE}}
+        @echo "Using {{PACKAGE_FILE}} file"
         for pkg in `cat {{PACKAGE_FILE}}`; do \
             just makepkg_flags={{makepkg_flags}} build $pkg; \
             just pkgcheck $pkg; \
@@ -43,3 +43,11 @@ pkgcheck target:
 
 copy target:
         cp -v {{target}}/*.pkg.tar.zst {{pkgsdir}}/{{arch}}/
+
+check-updates:
+        @echo "Using {{PACKAGE_FILE}} file"
+        for pkg in `cat {{PACKAGE_FILE}}`; do \
+            just makepkg_flags="--nobuild" build $pkg; \
+        done
+
+        git diff
