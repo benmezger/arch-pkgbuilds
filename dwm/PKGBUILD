@@ -2,7 +2,7 @@
 
 _upstream_name=dwm
 pkgname=$_upstream_name
-pkgver=r621.b32dca3
+pkgver=r647.ded78bf
 pkgrel=1
 pkgdesc="SEDS dwm configuration"
 arch=('x86_64')
