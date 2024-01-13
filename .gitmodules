@@ -1,0 +1,3 @@
+[submodule "nordvpn-bin"]
+	path = nordvpn-bin
+	url = https://aur.archlinux.org/nordvpn-bin.git
