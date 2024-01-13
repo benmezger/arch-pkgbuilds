@@ -15,10 +15,13 @@ all:
         @echo "Using {{PACKAGE_FILE}} file"
         just clone
         for pkg in `cat {{PACKAGE_FILE}}`; do \
-            just makepkg_flags={{makepkg_flags}} build $pkg; \
-            just pkgcheck $pkg; \
-            just pkgsdir={{pkgsdir}} copy $pkg; \
+            just single $pkg; \
         done
+
+single target:
+        just makepkg_flags={{makepkg_flags}} build {{target}}
+        just pkgcheck {{target}}
+        just pkgsdir={{pkgsdir}} copy {{target}}
 
 build target:
         @echo "Building {{target}}"
