@@ -13,6 +13,7 @@ pkgsdir := "../pacman-local"
 
 all:
         @echo "Using {{PACKAGE_FILE}} file"
+        just clone
         for pkg in `cat {{PACKAGE_FILE}}`; do \
             just makepkg_flags={{makepkg_flags}} build $pkg; \
             just pkgcheck $pkg; \
@@ -51,3 +52,7 @@ check-updates:
         done
 
         git diff
+
+clone:
+        @echo "Initializing and cloning submodules"
+        git submodule update --init --recursive
