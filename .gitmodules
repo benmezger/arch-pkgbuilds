@@ -6,3 +6,7 @@
 	path = spotify
 	url = https://aur.archlinux.org/spotify.git
 	ignore = untracked
+[submodule "emacs-git"]
+	path = emacs-git
+	url = https://aur.archlinux.org/emacs-git.git
+	ignore = untracked
