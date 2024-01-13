@@ -2,3 +2,7 @@
 	path = nordvpn-bin
 	url = https://aur.archlinux.org/nordvpn-bin.git
 	ignore = untracked
+[submodule "spotify"]
+	path = spotify
+	url = https://aur.archlinux.org/spotify.git
+	ignore = untracked
