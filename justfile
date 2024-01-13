@@ -1,6 +1,6 @@
 set shell := ["/bin/bash", "-c", "-eu", "-o", "pipefail"]
 PACKAGE_FILE := "PACKAGES"
-makepkg_flags := ""
+makepkg_flags := "-f"
 
 arch := "x86_64"
 pkgsdir := "../pacman-local"
