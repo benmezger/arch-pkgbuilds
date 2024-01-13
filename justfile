@@ -36,6 +36,7 @@ pkgcheck target:
         # and that package was updated. In this case, we want to exit so we can
         # manually fix the package
         if git status --porcelain | grep -q {{target}}; then \
+              echo "Package was updated, check the new version, commit and rebuild."; \
               git diff {{target}}; \
               exit 1; \
         fi
