@@ -10,6 +10,8 @@ license=('MIT')
 makedepends=('git' 'go' 'tmux')
 source=('git+https://github.com/arl/gitmux.git')
 md5sums=('SKIP')
+provides=('gitmux-git')
+conflicts=('gitmux')
 
 pkgver() {
         cd "$srcdir/${_pkgname}"
