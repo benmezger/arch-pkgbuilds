@@ -23,3 +23,7 @@
 	path = paru
 	url = https://aur.archlinux.org/paru.git
 	ignore = untracked
+[submodule "slack-desktop"]
+	path = slack-desktop
+	url = https://aur.archlinux.org/slack-desktop.git
+	ignore = untracked
