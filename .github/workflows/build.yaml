@@ -44,24 +44,16 @@ jobs:
       - name: Set source permissions
         run: |
           chown -R nonroot:nonroot .
-      - name: Clone sedspkg
-        run: |
-          git clone --depth 1 https://${{ secrets.GITLAB_SECRET_TOKEN }}@gitlab.com/benmezger/sedspkgs.git $pkgsdir && \
-            chown -R nonroot:nonroot $pkgsdir
+      - uses: webfactory/ssh-agent@v0.8.0
+        with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Build packages
         run: |
-          sudo -u nonroot just makepkg_flags=$makepkg_flags all
+          sudo -E -u nonroot just makepkg_flags=$makepkg_flags all
       - name: Show sedspkg diff
         run: |
           cd $pkgsdir
           sudo -u nonroot git diff
       - name: Commit and release
         run: |
-          cd $pkgsdir
-
-          git config --global --add safe.directory $pkgsdir
-          git config --global user.email "me@benmezger.nl"
-          git config --global user.name "Ben Mezger"
-          git remote set-url origin https://oauth:${{ secrets.GITLAB_SECRET_TOKEN }}@gitlab.com/benmezger/sedspkgs.git
-
           sudo -u nonroot just push-packages
