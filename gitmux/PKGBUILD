@@ -4,11 +4,10 @@ pkgname=$_pkgname-git
 pkgver=r72.b821624
 pkgrel=1
 pkgdesc="Git in your tmux status bar"
-arch=('any')
-url="https://github.com/arl/gitmux"
+arch=('x86_64' 'i686' 'aarch64')
+Url="https://github.com/arl/gitmux"
 license=('MIT')
-makedepends=('git' 'go')
-optdepends=('tmux')
+makedepends=('git' 'go' 'tmux')
 source=('git+https://github.com/arl/gitmux.git')
 md5sums=('SKIP')
 
