@@ -60,6 +60,7 @@ check-update target:
 clone:
         @echo "Initializing and cloning submodules"
         git submodule update --init --recursive
+        git pull --recurse-submodules --jobs=10
 
 push-packages:
         cd {{pkgsdir}} && ./build-db.sh
