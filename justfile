@@ -25,10 +25,11 @@ single target:
 
 build target:
         @echo "Building {{target}}"
+        cd {{target}} && rm -f *.pkg.tar.zst
         cd {{target}} && MAKEFLAGS="-j $(nproc)" makepkg -s --noconfirm {{makepkg_flags}}
 
 clean:
-        find . -name *.pkg.tar.zst -exec rm -rfv {} \;
+        find . -not -path "{{pkgsdir}}/*" -name *.pkg.tar.zst -exec rm -rfv {} \;
 
 pkgcheck target:
         @echo "Checking if there is no new package update"
@@ -49,11 +50,19 @@ copy target:
 check-updates:
         @echo "Using {{PACKAGE_FILE}} file"
         for pkg in `cat {{PACKAGE_FILE}}`; do \
-            just makepkg_flags="--nobuild" build $pkg; \
+            just check-update $pkg
         done
 
-        git diff
+check-update target:
+        just makepkg_flags="--nobuild" build {{target}}; \
+        cd {{target}} && git diff
 
 clone:
         @echo "Initializing and cloning submodules"
         git submodule update --init --recursive
+
+push-packages:
+        cd {{pkgsdir}} && ./build-db.sh
+        cd {{pkgsdir}} && git add .
+        cd {{pkgsdir}} && git status
+        cd {{pkgsdir}} && git commit -m "Build at $(date)"
