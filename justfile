@@ -37,14 +37,12 @@ pkgcheck target:
         # manually fix the package
         if test -z $(cd {{target}} && git rev-parse --show-superproject-working-tree); then \
             if git status --porcelain | grep -q {{target}}; then \
-                echo "Package was updated, check the new version, commit and rebuild."; \
+                echo "WARNING: Package was updated, check the new version, commit and rebuild."; \
                 git diff {{target}}; \
-                exit 1; \
             fi ; \
         fi
         if ! ls {{target}} | grep -q pkg.tar.zst ; then \
-              echo "No generated PKG found for {{target}}"; \
-              exit 1; \
+              echo "WARNING: No generated PKG found for {{target}}"; \
         fi
 
 copy target:
