@@ -25,7 +25,7 @@ single target:
 
 build target:
         @echo "Building {{target}}"
-        cd {{target}} && makepkg -s --noconfirm {{makepkg_flags}}
+        cd {{target}} && MAKEFLAGS="-j $(nproc)" makepkg -s --noconfirm {{makepkg_flags}}
 
 clean:
         find . -name *.pkg.tar.zst -exec rm -rfv {} \;
@@ -35,12 +35,13 @@ pkgcheck target:
         # NOTE: this check is for in case we ran makepkg on a git-based package,
         # and that package was updated. In this case, we want to exit so we can
         # manually fix the package
-        if git status --porcelain | grep -q {{target}}; then \
-              echo "Package was updated, check the new version, commit and rebuild."; \
-              git diff {{target}}; \
-              exit 1; \
+        if test -z $(cd {{target}} && git rev-parse --show-superproject-working-tree); then \
+            if git status --porcelain | grep -q {{target}}; then \
+                echo "Package was updated, check the new version, commit and rebuild."; \
+                git diff {{target}}; \
+                exit 1; \
+            fi ; \
         fi
-
         if ! ls {{target}} | grep -q pkg.tar.zst ; then \
               echo "No generated PKG found for {{target}}"; \
               exit 1; \
