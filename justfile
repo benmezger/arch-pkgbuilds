@@ -66,3 +66,4 @@ push-packages:
         cd {{pkgsdir}} && git add .
         cd {{pkgsdir}} && git status
         cd {{pkgsdir}} && git commit -m "Build at $(date)"
+        cd {{pkgsdir}} && git push
