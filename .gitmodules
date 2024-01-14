@@ -19,3 +19,7 @@
 [submodule "shell-notes"]
 	path = shell-notes
 	url = ssh://aur@aur.archlinux.org/shell-notes.git
+[submodule "paru"]
+	path = paru
+	url = https://aur.archlinux.org/paru.git
+	ignore = untracked
