@@ -16,3 +16,6 @@
 [submodule "sedspkgs"]
 	path = sedspkgs
 	url = git@gitlab.com:benmezger/sedspkgs
+[submodule "shell-notes"]
+	path = shell-notes
+	url = ssh://aur@aur.archlinux.org/shell-notes.git
