@@ -13,3 +13,6 @@
 [submodule "gitmux-git"]
 	path = gitmux-git
 	url = ssh://aur@aur.archlinux.org/gitmux-git.git
+[submodule "sedspkgs"]
+	path = sedspkgs
+	url = git@gitlab.com:benmezger/sedspkgs

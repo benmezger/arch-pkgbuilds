@@ -3,7 +3,7 @@ PACKAGE_FILE := "PACKAGES"
 makepkg_flags := "-f"
 
 arch := "x86_64"
-pkgsdir := "../pacman-local"
+pkgsdir := "./sedspkgs"
 
 # Build order:
 # 1. build <package>
