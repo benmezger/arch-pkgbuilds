@@ -6,10 +6,6 @@
 	path = spotify
 	url = https://aur.archlinux.org/spotify.git
 	ignore = untracked
-[submodule "emacs-git"]
-	path = emacs-git
-	url = https://aur.archlinux.org/emacs-git.git
-	ignore = untracked
 [submodule "gitmux-git"]
 	path = gitmux-git
 	url = ssh://aur@aur.archlinux.org/gitmux-git.git
@@ -26,4 +22,8 @@
 [submodule "slack-desktop"]
 	path = slack-desktop
 	url = https://aur.archlinux.org/slack-desktop.git
+	ignore = untracked
+[submodule "emacs-git"]
+	path = emacs-git
+	url = https://aur.archlinux.org/emacs-git.git
 	ignore = untracked
