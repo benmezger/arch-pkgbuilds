@@ -44,9 +44,11 @@ jobs:
       - name: Set source permissions
         run: |
           chown -R nonroot:nonroot .
-      - uses: webfactory/ssh-agent@v0.8.0
+      - name: Setup SSH
+        uses: MrSquaare/ssh-setup-action@v1
         with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: gitlab.com
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Build packages
         run: |
           sudo -E -u nonroot just makepkg_flags=$makepkg_flags all
